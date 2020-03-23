@@ -32,8 +32,13 @@
 </head>
 <body>
   <h1>Coronavirus cases in Japan</h1>
+  <p>Update: <time id="update"></time> </p>
   <div id="chart"></div>
-  <p></p>
+  <p>GitHub: <a href="https://github.com/big-stream/covid-19-ICU-japan">big-stream/covid-19-ICU-japan</a></p>
+  <script>
+    var latest = db[db.length] || db[db.length - 1]
+    document.getElementById('update').innerHTML = latest[0].toISOString().slice(0, 10)
+  </script>
 </body>
 </html>
 
