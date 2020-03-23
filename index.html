@@ -1,1 +1,39 @@
-<h1>Coronavirus cases in Japan</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Coronavirus cases in Japan</title>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="db.js"></script>
+<script>
+  google.charts.load('current', {'packages':['line']})
+  google.charts.setOnLoadCallback(drawChart)
+  function drawChart() {
+    var data = new google.visualization.DataTable()
+    data.addColumn('date', 'Date')
+    data.addColumn('number', 'Mild to moderate')
+    data.addColumn('number', 'With a ventilator or ICU')
+    data.addColumn('number', 'Total deaths')
+    data.addRows(db)
+    var options = {
+      chart: {
+        title: 'Coronavirus cases in Japan',
+        subtitle: 'More ventilators?'
+      },
+      hAxis: {
+        format: 'YYYY-MM-dd',
+      },
+      width: 900,
+      height: 500
+    }
+    var chart = new google.charts.Line(document.getElementById('chart'))
+    chart.draw(data, google.charts.Line.convertOptions(options))
+  }
+</script>
+</head>
+<body>
+  <h1>Coronavirus cases in Japan</h1>
+  <div id="chart"></div>
+  <p></p>
+</body>
+</html>
+
