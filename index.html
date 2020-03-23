@@ -15,29 +15,63 @@
     data.addColumn('number', 'Total deaths')
     data.addRows(db)
     var options = {
-      chart: {
-        title: 'Coronavirus cases in Japan',
-        subtitle: 'More ventilators?'
-      },
-      hAxis: {
-        format: 'YYYY-MM-dd',
-      },
-      width: 900,
-      height: 500
+      hAxis: { format: 'YYYY-MM-dd' },
+      legend: { alignment: 'center' },
     }
     var chart = new google.charts.Line(document.getElementById('chart'))
-    chart.draw(data, google.charts.Line.convertOptions(options))
+    resize()
+    function resize () {
+      chart.draw(data, google.charts.Line.convertOptions(options))
+    }
+    window.addEventListener ? window.addEventListener('resize', resize) : window.attachEvent('onresize', resize)
   }
 </script>
+<style>
+@media screen and (min-width: 360px) {
+  #chart { width: 360px; height: 180px; }
+}
+@media screen and (min-width: 600px) {
+  #chart { width: 600px; height: 300px; }
+}
+@media screen and (min-width: 700px) {
+  #chart { width: 700px; height: 350px; }
+}
+@media screen and (min-width: 800px) {
+  #chart { width: 800px; height: 400px; }
+}
+@media screen and (min-width: 900px) {
+  #chart { width: 900px; height: 450px; }
+}
+.note { color: red; }
+</style>
 </head>
 <body>
   <h1>Coronavirus cases in Japan</h1>
-  <p>Update: <time id="update"></time> </p>
+  <p>Update: <time><a id="update" target="_blank" rel="noopener noreferrer"></a></time> </p>
   <div id="chart"></div>
+
+  <p>入院治療を有する者のうち、</p>
+  <ul>
+    <li>Mild to moderate: 「軽〜中等症の者」の合計</li>
+    <li class="note">With a ventilator or ICU: 「人工呼吸器又は集中治療室に入院している者」の合計</li>
+    <li>Total deaths: 「死亡者」の合計</li>
+  </ul>
+
+  <h2>人工呼吸器の待機台数(18322)まで、まだまだ余裕?</h2>
+  <ul>
+    <li>人工呼吸器: 13437台 (取扱22254台 うち小児8695)</li>
+    <li>マスク専用人工呼吸器: 3630台 (取扱5943台)</li>
+    <li>ECMO装置: 1255台 (取扱1412台)</li>
+  </ul>
+  <p>参考: <a href="https://www.ja-ces.or.jp/wordpress/wp-content/uploads/2020/03/d17eb111750dd2702c626ae3fb46f21c.pdf"
+    target="_blank" rel="noopener noreferrer">人工呼吸器およびECMO装置の取扱台数等に関する緊急調査</a>
+    (公益社団法人日本臨床工学技士会 2020-03-09)</p>
   <p>GitHub: <a href="https://github.com/big-stream/covid-19-ICU-japan">big-stream/covid-19-ICU-japan</a></p>
+
   <script>
     var latest = db[db.length] || db[db.length - 1]
     document.getElementById('update').innerHTML = latest[0].toISOString().slice(0, 10)
+    document.getElementById('update').setAttribute('href', url)
   </script>
 </body>
 </html>
