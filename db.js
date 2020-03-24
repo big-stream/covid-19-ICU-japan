@@ -22,5 +22,6 @@ var db = [
   [new Date('2020-03-21'), 402, 55, 35,],
   [new Date('2020-03-22'), 404, 57, 36,],
   [new Date('2020-03-23'), 428, 54, 41,],
+  [new Date('2020-03-24'), 448, 55, 42,],
 ]
-var url = 'https://www.mhlw.go.jp/stf/newpage_10385.html'
+var url = 'https://www.mhlw.go.jp/stf/newpage_10426.html'
