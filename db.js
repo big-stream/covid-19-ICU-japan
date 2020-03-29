@@ -80,8 +80,8 @@ var ventilator = [
   [47, "沖縄県", 247, 888, 313, 1448, 332],
 ]
 ventilator.forEach(e => {
-  e.push(Math.round(e[6]/e[5]*100))
-  e.push(Math.round(e[6]/e[4]*100))
-  e.push(Math.round(e[6]/(e[3]+e[4])*100))
+  e.push(Math.round(e[6]/e[5]*100)/10)
+  e.push(Math.round(e[6]/e[4]*100)/10)
+  e.push(Math.round(e[6]/(e[3]+e[4])*100)/10)
 })
 var url = 'https://www.mhlw.go.jp/stf/newpage_10555.html'

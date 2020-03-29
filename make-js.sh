@@ -21,9 +21,9 @@ awk -F , 'NR > 1 && NR < 50 {printf("  [%s, \"%s\", %s, %s, %s, %s, %s],\n", $1,
 echo ']' >> db.js
 cat << end >> db.js
 ventilator.forEach(e => {
-  e.push(Math.round(e[6]/e[5]*100))
-  e.push(Math.round(e[6]/e[4]*100))
-  e.push(Math.round(e[6]/(e[3]+e[4])*100))
+  e.push(Math.round(e[6]/e[5]*100)/10)
+  e.push(Math.round(e[6]/e[4]*100)/10)
+  e.push(Math.round(e[6]/(e[3]+e[4])*100)/10)
 })
 end
 
