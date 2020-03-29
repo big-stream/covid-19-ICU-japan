@@ -76,6 +76,8 @@ body { font-size: 1.4em; }
 <body>
   <h1>Coronavirus cases in Japan</h1>
   <p>Update: <time><a id="update" target="_blank" rel="noopener noreferrer"></a></time> </p>
+  <h2>ICU:<span id="ICU" class="icu"></span> , Total Deaths:<span id="deaths" class="note"></span></h2>
+
   <div id="chart"></div>
 
   <p>入院治療を有する者のうち、</p>
@@ -110,13 +112,20 @@ body { font-size: 1.4em; }
   <p>引用: <a href="https://www.ja-ces.or.jp/wordpress/wp-content/uploads/2020/03/d17eb111750dd2702c626ae3fb46f21c.pdf"
     target="_blank" rel="noopener noreferrer">人工呼吸器およびECMO装置の取扱台数等に関する緊急調査</a>
     (一般社団法人日本呼吸療法医学会, 公益社団法人日本臨床工学技士会 2020-03-09)</p>
-  <p>人口: <a href="https://www.stat.go.jp/data/jinsui/2018np/index.html">総務省統計局</a>: <a href="https://www.stat.go.jp/data/jinsui/2018np/zuhyou/05k30-3.xls">第3表.xls</a></p>
+
+  <p>人口: <a href="https://www.stat.go.jp/data/jinsui/2018np/index.html"
+    target="_blank" rel="noopener noreferrer">総務省統計局</a>: 
+    <a href="https://www.stat.go.jp/data/jinsui/2018np/zuhyou/05k30-3.xls" 
+    target="_blank" rel="noopener noreferrer">第3表.xls</a></p>
+
   <p>GitHub: <a href="https://github.com/big-stream/covid-19-ICU-japan">big-stream/covid-19-ICU-japan</a></p>
 
   <script>
     var latest = db[db.length] || db[db.length - 1]
     document.getElementById('update').innerHTML = latest[0].toISOString().slice(0, 10)
     document.getElementById('update').setAttribute('href', url)
+    document.getElementById('ICU').innerHTML = latest[1]
+    document.getElementById('deaths').innerHTML = latest[2]
   </script>
 </body>
 </html>
