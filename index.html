@@ -5,12 +5,14 @@
 <script src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="db.js"></script>
 <script>
-  google.charts.load('current', {'packages':['line']})
-  google.charts.setOnLoadCallback(drawChart)
+  google.charts.load('current', {'packages':['line', 'table']})
+  google.charts.setOnLoadCallback(() => {
+    drawChart()
+    drawTable()
+  })
   function drawChart() {
     var data = new google.visualization.DataTable()
     data.addColumn('date', 'Date')
-    data.addColumn('number', 'Mild to moderate')
     data.addColumn('number', 'With a ventilator or ICU')
     data.addColumn('number', 'Total deaths')
     data.addRows(db)
@@ -24,6 +26,29 @@
       chart.draw(data, google.charts.Line.convertOptions(options))
     }
     window.addEventListener ? window.addEventListener('resize', resize) : window.attachEvent('onresize', resize)
+  }
+
+  function drawTable() {
+    var data = new google.visualization.DataTable()
+    data.addColumn('number', '番号')
+    data.addColumn('string', '都道府県')
+    data.addColumn('number', '〜14')
+    data.addColumn('number', '15〜64')
+    data.addColumn('number', '65〜')
+    data.addColumn('number', '計(千人)')
+    data.addColumn('number', '呼吸器')
+    data.addColumn('number', '/1万')
+    data.addColumn('number', '/65〜')
+    data.addColumn('number', '/15〜')
+    data.addRows(ventilator)
+    var table = new google.visualization.Table(document.getElementById('table'))
+    var options = {
+      cssClassNames: {
+        'tableCell': 'cell',
+        'headerCell': 'cell',
+      },
+    }
+    table.draw(data, options)
   }
 </script>
 <style>
@@ -43,6 +68,9 @@
   #chart { width: 900px; height: 450px; }
 }
 .note { color: red; }
+.icu { color: blue; }
+body { font-size: 1.4em; }
+.cell{ font-size: 1.4em; }
 </style>
 </head>
 <body>
@@ -52,20 +80,37 @@
 
   <p>入院治療を有する者のうち、</p>
   <ul>
-    <li>Mild to moderate: 「軽〜中等症の者」の合計</li>
-    <li class="note">With a ventilator or ICU: 「人工呼吸器又は集中治療室に入院している者」の合計</li>
+    <li>With a ventilator or ICU: 「<span class="icu">人工呼吸器又は集中治療室</span>に入院している者」の合計</li>
     <li>Total deaths: 「死亡者」の合計</li>
   </ul>
 
-  <h2>人工呼吸器の待機台数(18322)まで、まだまだ余裕?</h2>
+  <h2>人工呼吸器の待機台数(18322)まで、まだ余裕?</h2>
+  <h3 class="note">=> 地域的なキャパで考えると</h3>
+  <ul>
+    <li>1万人当たり1.4台しかない</li>
+    <li>10万人地域の病院に14台しかない</li>
+    <li>感染爆発はまず地域的に発生する</li>
+  </ul>
+
+  <h2>都道府県の人口と呼吸器のキャパ</h2>
+  <p>下表は、年齢階級ごとの人口(単位千)と1万人当たりの呼吸器待機台数。ソート可。</p>
+  <ul>
+    <li>全国: 65才以上(3557万8千人)で、1万人当たり5.1台。15才以上で1.7台。</li>
+    <li>沖縄: 65才以上10.6台でトップ。</li>
+    <li>首都圏では神奈川が65才以上2.8台で少なめ。</li>
+  </ul>
+  <div id="table"></div>
+
+  <h2>参考: 人工呼吸器の待機台数</h2>
   <ul>
     <li>人工呼吸器: 13437台 (取扱22254台 うち小児8695)</li>
     <li>マスク専用人工呼吸器: 3630台 (取扱5943台)</li>
     <li>ECMO装置: 1255台 (取扱1412台)</li>
   </ul>
-  <p>参考: <a href="https://www.ja-ces.or.jp/wordpress/wp-content/uploads/2020/03/d17eb111750dd2702c626ae3fb46f21c.pdf"
+  <p>引用: <a href="https://www.ja-ces.or.jp/wordpress/wp-content/uploads/2020/03/d17eb111750dd2702c626ae3fb46f21c.pdf"
     target="_blank" rel="noopener noreferrer">人工呼吸器およびECMO装置の取扱台数等に関する緊急調査</a>
-    (公益社団法人日本臨床工学技士会 2020-03-09)</p>
+    (一般社団法人日本呼吸療法医学会, 公益社団法人日本臨床工学技士会 2020-03-09)</p>
+  <p>人口: <a href="https://www.stat.go.jp/data/jinsui/2018np/index.html">総務省統計局</a>: <a href="https://www.stat.go.jp/data/jinsui/2018np/zuhyou/05k30-3.xls">第3表.xls</a></p>
   <p>GitHub: <a href="https://github.com/big-stream/covid-19-ICU-japan">big-stream/covid-19-ICU-japan</a></p>
 
   <script>
