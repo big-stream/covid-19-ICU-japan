@@ -50,6 +50,7 @@ var db = [
   [new Date('2020-04-18'), 211, 154,],
   [new Date('2020-04-19'), 217, 161,],
   [new Date('2020-04-20'), 231, 171,],
+  [new Date('2020-04-21'), 232, 186,],
 ]
 var ventilator = [
   [0, "全国", 15415, 75451, 35578, 126444, 18322],
@@ -106,4 +107,4 @@ ventilator.forEach(e => {
   e.push(Math.round(e[6]/e[4]*100)/10)
   e.push(Math.round(e[6]/(e[3]+e[4])*100)/10)
 })
-var url = 'https://www.mhlw.go.jp/stf/newpage_10936.html'
+var url = 'https://www.mhlw.go.jp/stf/newpage_10965.html'
